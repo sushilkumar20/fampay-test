@@ -14,6 +14,10 @@ type YouTubeClient struct {
 	token   string
 }
 
+func NewYouTubeClient(client *http.Client, baseUrl, token string) *YouTubeClient {
+	return &YouTubeClient{client: client, baseUrl: baseUrl, token: token}
+}
+
 // TODO:error handling
 func (v *YouTubeClient) FetchLatestVideo(fetchVideoAfter string) ([]VideoItem, error) {
 
@@ -55,6 +59,11 @@ func (v *YouTubeClient) FetchLatestVideo(fetchVideoAfter string) ([]VideoItem, e
 		return nil, err
 	}
 	videos, err := v.parseYoutubeResponse(body)
+
+	if err != nil {
+		fmt.Println("Error parsing response:", err)
+		return nil, err
+	}
 	return videos, nil
 }
 

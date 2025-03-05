@@ -1,0 +1,5 @@
+package probe
+
+func LoadProbe() {
+
+}

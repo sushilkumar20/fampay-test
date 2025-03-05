@@ -167,12 +167,12 @@ func TestPostgresStore_Insert(t *testing.T) {
 			args: args{
 				ctx: context.Background(),
 				videoMetaData: &VideoMetaData{
-					id:               uuid.New().String(),
-					videoId:          uuid.New().String(),
-					title:            "welcome to testing",
-					description:      "enjoy your day",
-					publishedAt:      time.Now().UTC().UnixMilli(),
-					defaultThumbnail: "www.google.com",
+					Id:               uuid.New().String(),
+					VideoId:          uuid.New().String(),
+					Title:            "welcome to testing",
+					Description:      "enjoy your day",
+					PublishedAt:      time.Now().UTC().UnixMilli(),
+					DefaultThumbnail: "www.google.com",
 				},
 			},
 			wantErr: false,

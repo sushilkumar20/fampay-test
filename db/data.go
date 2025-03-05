@@ -1,15 +1,15 @@
 package db
 
 type VideoMetaData struct {
-	id               string `gorm:"primary_key"`
-	videoId          string
-	title            string
-	description      string
-	publishedAt      int64
-	defaultThumbnail string
+	Id               string `gorm:"primary_key"`
+	VideoId          string
+	Title            string
+	Description      string
+	PublishedAt      int64
+	DefaultThumbnail string
 }
 
 type Page struct {
-	limit  int32
-	offset int32
+	Limit  int32
+	Offset int32
 }

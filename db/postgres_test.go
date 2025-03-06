@@ -18,9 +18,9 @@ var postgresConfig *config.PostgresConfig = &config.PostgresConfig{
 	Port:         "5432",
 }
 var dataBase = InitDb(postgresConfig)
-var err = LoadSchema(dataBase)
 
 func TestPostgresStore_Delete(t *testing.T) {
+	LoadSchema(dataBase)
 	type fields struct {
 		db *gorm.DB
 	}

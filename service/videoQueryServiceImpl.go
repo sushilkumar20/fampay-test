@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fam/common"
 	"fam/db"
 	"time"
 )
@@ -20,6 +21,12 @@ func (obj *VideoQueryServiceImpl) SearchVideos(ctx *context.Context, searchQuery
 		return nil, err
 	}
 
+	if len(videos) == 0 {
+		return nil, &common.NotFound{
+			Message: "Video Not Found",
+		}
+	}
+
 	return obj.parse(videos), nil
 }
 
@@ -28,6 +35,12 @@ func (obj *VideoQueryServiceImpl) GetVideos(ctx *context.Context, page *db.Page)
 
 	if err != nil {
 		return nil, err
+	}
+
+	if len(videos) == 0 {
+		return nil, &common.NotFound{
+			Message: "Video Not Found for given query",
+		}
 	}
 
 	return obj.parse(videos), nil

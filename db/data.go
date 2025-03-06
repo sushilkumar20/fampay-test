@@ -5,11 +5,11 @@ type VideoMetaData struct {
 	VideoId          string
 	Title            string
 	Description      string
-	PublishedAt      int64
+	PublishedAt      int64 //no of millisecond
 	DefaultThumbnail string
 }
 
 type Page struct {
-	Limit  int32
-	Offset int32
+	LastFetchedTime string
+	Size            int
 }

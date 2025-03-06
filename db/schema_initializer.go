@@ -1,11 +1,13 @@
 package db
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+	"log"
+)
 
-func LoadSchema(database *gorm.DB) error {
+func LoadSchema(database *gorm.DB) {
 	err := database.AutoMigrate(&VideoMetaData{})
 	if err != nil {
-		return err
+		log.Panic("failed to migrate schema", err)
 	}
-	return nil
 }

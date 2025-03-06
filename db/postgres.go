@@ -3,6 +3,8 @@ package db
 import (
 	"context"
 	"gorm.io/gorm"
+	"math"
+	"time"
 )
 
 // TODO: handle error
@@ -60,9 +62,52 @@ func (p *PostgresStore) Get(ctx context.Context, videoId string) (*VideoMetaData
 }
 
 func (p *PostgresStore) GetPaginated(ctx context.Context, page *Page) ([]*VideoMetaData, error) {
-	return nil, nil
+	var videos []*VideoMetaData
+
+	query := p.db.Order("published_at DESC").Limit(page.Size)
+
+	cursorTimeInMillisecond := (int64)(math.MaxInt64)
+	if page.LastFetchedTime != "" {
+		cursorTime, err := time.Parse(time.RFC3339, page.LastFetchedTime)
+		if err == nil {
+			cursorTimeInMillisecond = cursorTime.UnixMilli()
+		}
+	}
+
+	query = query.Where("published_at < ?", cursorTimeInMillisecond)
+	result := query.Find(&videos)
+
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return videos, nil
 }
 
-func (p *PostgresStore) Search(ctx context.Context, query string, page *Page) ([]*VideoMetaData, error) {
-	return nil, nil
+func (p *PostgresStore) Search(ctx context.Context, searchQuery string, page *Page) ([]*VideoMetaData, error) {
+	var videos []*VideoMetaData
+
+	dbQuery := p.db.Order("published_at DESC").Limit(page.Size)
+
+	cursorTimeInMillisecond := (int64)(math.MaxInt64)
+	if page.LastFetchedTime != "" {
+		cursorTime, err := time.Parse(time.RFC3339, page.LastFetchedTime)
+		if err == nil {
+			cursorTimeInMillisecond = cursorTime.UnixMilli()
+		}
+	}
+
+	if searchQuery != "" {
+		likePattern := "%" + searchQuery + "%"
+		dbQuery = dbQuery.Where("title ILIKE ? OR description ILIKE ?", likePattern, likePattern)
+	}
+
+	dbQuery = dbQuery.Where("published_at < ?", cursorTimeInMillisecond)
+	result := dbQuery.Find(&videos)
+
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return videos, nil
 }

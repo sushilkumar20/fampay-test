@@ -11,5 +11,5 @@ type DBClinet interface {
 	DeleteBulk(ctx context.Context, videoIds []string) error
 	Get(ctx context.Context, videoId string) (*VideoMetaData, error)
 	GetPaginated(ctx context.Context, page *Page) ([]*VideoMetaData, error)
-	Search(ctx context.Context, query string, page *Page) ([]*VideoMetaData, error)
+	Search(ctx context.Context, searchQuery string, page *Page) ([]*VideoMetaData, error)
 }

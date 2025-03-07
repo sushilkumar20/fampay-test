@@ -23,7 +23,7 @@ This project is a **YouTube Video Fetcher API** that continuously fetches the la
 ## ⚙️ Setup and Installation
 ### 1️⃣ Clone the Repository
 ```sh
-git clone https://github.com/yourusername/youtube-video-fetcher.git
+git clone [https://github.com/yourusername/youtube-video-fetcher.git](https://github.com/sushilkumar20/fampay-test.git)
 cd fam
 ```
 

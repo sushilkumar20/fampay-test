@@ -3,9 +3,9 @@ package db
 type VideoMetaData struct {
 	Id               string `gorm:"primary_key"`
 	VideoId          string
-	Title            string
-	Description      string
-	PublishedAt      int64 //no of millisecond
+	Title            string `gorm:"index"`
+	Description      string `gorm:"index"`
+	PublishedAt      int64  `gorm:"index:idx_published_at,sort:desc"` //no of millisecond
 	DefaultThumbnail string
 }
 

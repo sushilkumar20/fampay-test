@@ -2,8 +2,8 @@ package probe
 
 import (
 	"context"
+	"fam/client"
 	"fam/db"
-	"fam/manager"
 	"fmt"
 	"github.com/google/uuid"
 	"time"
@@ -11,7 +11,7 @@ import (
 
 type YouTubeVideoSyncer struct {
 	db.DBClinet
-	manager.YouTubeClient
+	client.YouTubeClient
 }
 
 // TODO : check logic for time
@@ -40,7 +40,7 @@ func (y *YouTubeVideoSyncer) Execute() error {
 	return nil
 }
 
-func (y *YouTubeVideoSyncer) parse(item []manager.VideoItem) ([]*db.VideoMetaData, error) {
+func (y *YouTubeVideoSyncer) parse(item []client.VideoItem) ([]*db.VideoMetaData, error) {
 	var videoItems []*db.VideoMetaData
 	for _, item := range item {
 		videoItems = append(videoItems, &db.VideoMetaData{

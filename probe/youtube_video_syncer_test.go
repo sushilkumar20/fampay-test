@@ -1,9 +1,9 @@
 package probe
 
 import (
+	"fam/client"
 	"fam/config"
 	"fam/db"
-	"fam/manager"
 	"net/http"
 	"testing"
 )
@@ -18,13 +18,13 @@ var postgresConfig *config.PostgresConfig = &config.PostgresConfig{
 var dataBase = db.InitDb(postgresConfig)
 var baseUrl = "https://www.googleapis.com/youtube/v3"
 var token = "ya29.a0AeXRPp7JGl-Iwg2h6rCCe0xsIUYoVqO0CZXWJ-it0xLMIvPWJgbceRbWw2WsveBZHFqV62yWJLwy_kvLCEkBhLm2VqdaYoOQTZPuc2dgTVADOE5KjMWaYHUCTfd0OyJD4TRza-Tc40eEqYtB_k6kb-WJ-HuJx_KJ_vGKr2F2aCgYKAZQSARESFQHGX2MiDKAR_ldADXDj_ZUSm4__oQ0175"
-var youtubeClient = manager.NewYouTubeClient(&http.Client{}, baseUrl, token)
+var youtubeClient = client.NewYouTubeClient(&http.Client{}, baseUrl, token)
 
 func TestYouTubeVideoSyncer_Execute(t *testing.T) {
 	db.LoadSchema(dataBase)
 	type fields struct {
 		DBClinet      db.DBClinet
-		YouTubeClient manager.YouTubeClient
+		YouTubeClient client.YouTubeClient
 	}
 	tests := []struct {
 		name    string

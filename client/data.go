@@ -1,4 +1,4 @@
-package manager
+package client
 
 type YouTubeResponse struct {
 	Items []VideoItem `json:"items"`

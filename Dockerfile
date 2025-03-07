@@ -15,5 +15,4 @@ COPY --from=builder /app/main .
 
 EXPOSE 8080
 
-# Step 11: Command to run the application
 CMD ["./main"]

@@ -14,7 +14,7 @@ func LoadProbe(dataBase *gorm.DB) {
 	youtubeVideoSyncer := YouTubeVideoSyncer{
 		DBClinet: db.NewPostgresStore(dataBase),
 		YouTubeClient: *manager.NewYouTubeClient(&http.Client{},
-			config.Configuration.YoutubeConfig.ApiKey,
+			config.Configuration.YoutubeConfig.BaseUrl,
 			config.Configuration.YoutubeConfig.ApiKey)}
 	runner := NewProbeRunner(duration, nil, &youtubeVideoSyncer)
 

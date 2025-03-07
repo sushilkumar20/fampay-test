@@ -2,6 +2,7 @@ package manager
 
 import (
 	"encoding/json"
+	"fam/config"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -30,16 +31,17 @@ func (v *YouTubeClient) FetchLatestVideo(fetchVideoAfter string) ([]VideoItem, e
 	queryParams.Set("publishedAfter", fetchVideoAfter)
 	queryParams.Set("part", "snippet")
 	queryParams.Set("order", "date")
-	queryParams.Set("q", "cricket")
+	queryParams.Set("q", config.Configuration.SearchQuery)
 	queryParams.Set("maxResults", "5")
+	queryParams.Set("key", v.token)
 	parsedUrl.RawQuery = queryParams.Encode()
 
 	request, err := http.NewRequest("GET", parsedUrl.String(), nil)
 
-	if err != nil {
-		fmt.Println(err)
-	}
-	request.Header.Add("Authorization", "Bearer "+v.token)
+	//if err != nil {
+	//	fmt.Println(err)
+	//}
+	//request.Header.Add("Authorization", "Bearer "+v.token)
 
 	response, err := v.client.Do(request)
 	if err != nil {

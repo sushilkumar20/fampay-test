@@ -13,6 +13,7 @@ type ServerConfig struct {
 	PostgresConfig *PostgresConfig
 	YoutubeConfig  *YoutubeConfig
 	ProbeDuration  time.Duration
+	SearchQuery    string
 }
 type PostgresConfig struct {
 	Host         string
@@ -58,10 +59,11 @@ func init() {
 			Port:         os.Getenv("POSTGRES_PORT"),
 		},
 		YoutubeConfig: &YoutubeConfig{
-			BaseUrl: os.Getenv("YOUTUBE_URL"),
+			BaseUrl: os.Getenv("YOUTUBE_BASE_URL"),
 			ApiKey:  os.Getenv("YOUTUBE_API_KEY"),
 		},
 		ProbeDuration: time.Duration(duration) * time.Second,
+		SearchQuery:   os.Getenv("SEARCH_QUERY"),
 	}
 
 }

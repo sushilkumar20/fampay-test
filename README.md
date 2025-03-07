@@ -113,6 +113,3 @@ CREATE INDEX idx_title_description ON videos USING GIN (to_tsvector('english', t
 - Improve **search API** with fuzzy matching for better results.
 - Add **Redis caching** to optimize frequent queries.
 
-## 📜 License
-This project is licensed under the MIT License.
-
